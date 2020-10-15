@@ -1,27 +1,33 @@
 class Circle {
   float x;
   float y;
-  float xSpeed;
-  float ySpeed;
+  float xSpeed=20;
+  float ySpeed=20;
   int radius;
+  float side;
   color circleColor;
-  
-//  circle = new Circle(random(width), random(height), random(-3, 3), random(-3, 3), 50);
-  Circle(float x, float y, float xSpeed, float ySpeed, int radiusCircle, color circleColor) {
+  boolean square=false;
+
+//Two different constructors but with the same class. The boolean square is used to determine if the shape changes to a square or not.
+  Circle(float x, float y, float xSpeed, float ySpeed, float side, color circleColor) {
     this.x = x;
     this.y = y;
     this.xSpeed = xSpeed;
     this.ySpeed = ySpeed;
-    radius = radiusCircle;
+    this.side = side;
+    this.circleColor = circleColor;
+    square=true;
   }
-  
-    Circle(float x, float y, float xSpeed, float ySpeed,  color circleColor) {
+   Circle(float x, float y, float xSpeed, float ySpeed, int radius, color circleColor) {
     this.x = x;
     this.y = y;
     this.xSpeed = xSpeed;
     this.ySpeed = ySpeed;
-    this.radius = 20;
+    this.radius = radius;
+    this.circleColor = circleColor;
+    square=false;
   }
+
   void move() {
     x += xSpeed;
     if (x < 0 || x > width) {
@@ -33,9 +39,15 @@ class Circle {
       ySpeed *= -1;
     }
   }
-  
+//If the square is false, the object will appear as an ellipse, and if it's true it will appear as a square. 
   void display(){
+   if(!square){
    fill(circleColor);
-   ellipse(x, y, radius, radius); 
+   ellipse(x,y,radius,radius);
   }
+  if(square){
+  rectMode(CENTER);
+  rect(x,y,side,side);
+}
+}
 }
